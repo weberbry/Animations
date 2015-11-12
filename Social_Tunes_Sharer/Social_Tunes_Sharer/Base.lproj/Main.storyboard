@@ -15,11 +15,59 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="great_big_pile" translatesAutoresizingMaskIntoConstraints="NO" id="2D1-OP-oSx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="400"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.49019607840000001" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="400" id="evI-gL-dY2"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Have You Seen My Prefrontal Cortex?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OFL-m2-Bk1">
+                                <rect key="frame" x="173.5" y="440.5" width="253.5" height="17.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.34901960780000002" green="0.18823529410000001" blue="0.1647058824" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5L7-ZV-1bc">
+                                <rect key="frame" x="175" y="473" width="250" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="250" id="XZ8-RV-CJi"/>
+                                    <constraint firstAttribute="height" constant="50" id="evS-yl-jEP"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A GREAT BIG PILE OF LEAVES" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPO-8N-6fy">
+                                <rect key="frame" x="177" y="415" width="247.5" height="20.5"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.34901960784313724" green="0.18823529411764706" blue="0.16470588235294117" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="OFL-m2-Bk1" firstAttribute="top" secondItem="cPO-8N-6fy" secondAttribute="bottom" constant="5" id="1DK-5N-Fpe"/>
+                            <constraint firstItem="cPO-8N-6fy" firstAttribute="top" secondItem="2D1-OP-oSx" secondAttribute="bottom" constant="15" id="6X9-kh-To9"/>
+                            <constraint firstItem="5L7-ZV-1bc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Cj7-3W-Vxa"/>
+                            <constraint firstItem="2D1-OP-oSx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="CkN-VS-bH1"/>
+                            <constraint firstItem="cPO-8N-6fy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="E6H-ci-W40"/>
+                            <constraint firstItem="OFL-m2-Bk1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LI6-ud-l1J"/>
+                            <constraint firstItem="2D1-OP-oSx" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NMm-ZM-7JV"/>
+                            <constraint firstItem="5L7-ZV-1bc" firstAttribute="top" secondItem="OFL-m2-Bk1" secondAttribute="bottom" constant="15" id="jys-DL-KZG"/>
+                            <constraint firstAttribute="trailing" secondItem="2D1-OP-oSx" secondAttribute="trailing" id="xyY-Hp-hIn"/>
+                        </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="buttonContainer" destination="5L7-ZV-1bc" id="bgN-NW-zhQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="340" y="362"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="great_big_pile" width="1000" height="1000"/>
+    </resources>
 </document>

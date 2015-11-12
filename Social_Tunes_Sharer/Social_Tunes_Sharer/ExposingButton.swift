@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import UIColor_Hex_Swift
 
 class ExposingButton: UIView {
     
-    var overlay: UIButton!
+    var overlayButton: UIButton!
     var buttonContainer: UIView!
-    var tester: UIView!
+    var expandingOverlay: UIView!
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)!
@@ -21,32 +22,42 @@ class ExposingButton: UIView {
     override init(frame:CGRect) {
         super.init(frame:frame)
         
-        buttonContainer = UIView(frame: CGRectMake(frame.width, 0, frame.width, 100))
+        backgroundColor = UIColor(rgba: "#59302A")
         
-        let button1:UIButton = UIButton(frame: CGRectMake(0, 0, 100, 100))
-        button1.backgroundColor = UIColor.greenColor()
-        button1.setTitle("Button", forState: UIControlState.Normal)
-        button1.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        buttonContainer.addSubview(button1)
+        buttonContainer = UIView(frame: CGRectMake(frame.width, 0, frame.width, frame.height))
         
-        let button2:UIButton = UIButton(frame: CGRectMake(150, 0, 100, 100))
-        button2.backgroundColor = UIColor.greenColor()
-        button2.setTitle("Button", forState: UIControlState.Normal)
-        button2.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        buttonContainer.addSubview(button2)
+        let buttonNames : [String] = ["socialMediaGoogle", "socialMediaTwitter", "socialMediaFacebook"]
+        
+        for var index = 0; index < buttonNames.count; ++index {
+            
+            let buttonName = buttonNames[index]
+            let image = UIImage(named: buttonName) as UIImage?
+            let button  = UIButton(type: UIButtonType.System) as UIButton
+            
+            let x = (CGFloat(index + 1) / CGFloat(buttonNames.count)) * frame.width
+            button.frame = CGRectMake(x - frame.height, 10, frame.height - 20, frame.height - 20)
+            button.setImage(image, forState: .Normal)
+            button.addTarget(self, action: "buttonTapped:", forControlEvents:.TouchUpInside)
+            button.tintColor = UIColor(rgba: "#DED6D7")
+            buttonContainer.addSubview(button)
+        }
         
         self.addSubview(buttonContainer)
         
-        overlay = UIButton(frame: CGRectMake(0, 0, frame.width, 100))
-        overlay.backgroundColor = UIColor.redColor()
-        overlay.setTitle("Share", forState: UIControlState.Normal)
-        overlay.addTarget(self, action: "overlayTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.addSubview(overlay)
+        overlayButton = UIButton(frame: CGRectMake(0, 0, frame.width, frame.height))
+        overlayButton.backgroundColor = UIColor(rgba: "#DCCA7A")
+        overlayButton.setTitle("SHARE", forState: UIControlState.Normal)
+        overlayButton.addTarget(self, action: "overlayTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        overlayButton.setTitleColor(UIColor(rgba: "#59302A"), forState: UIControlState.Normal)
+        overlayButton.titleLabel!.font =  UIFont(name: "HelveticaNeue-Bold", size: 20)
+        self.addSubview(overlayButton)
         
-        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, frame.width, 100), cornerRadius: 50)
+
+        
+        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, frame.width, frame.height), cornerRadius: 50)
         
         let maskLayer = CAShapeLayer.init()
-        maskLayer.frame = CGRectMake(0, 0, frame.width, 100)
+        maskLayer.frame = CGRectMake(0, 0, frame.width, frame.height)
         maskLayer.frame = self.bounds;
         maskLayer.path = maskPath.CGPath;
         
@@ -54,59 +65,67 @@ class ExposingButton: UIView {
 
     }
     
+//MARK: Button Actions
+    
     func overlayTapped(sender:UIButton) {
-        UIView.animateWithDuration(0.5) { () -> Void in
-            var destinationFrame = self.overlay.frame
-            destinationFrame.origin.x = self.overlay.frame.width * -1
-            self.overlay.frame = destinationFrame
-            
-            var destinationFrame2 = self.buttonContainer.frame
-            destinationFrame2.origin.x = 0
-            self.buttonContainer.frame = destinationFrame2
-        }
+        exposeButtonsAnimation()
     }
     
     func buttonTapped(sender:UIButton) {
-        
-        tester = sender
-        let leftOverlay = UIView(frame: CGRectMake(sender.center.x, 0, 0, 100))
-        leftOverlay.backgroundColor = UIColor.orangeColor()
-        self.addSubview(leftOverlay)
-        let rightOverlay = UIView(frame: CGRectMake(sender.center.x, 0, 0, 100))
-        rightOverlay.backgroundColor = UIColor.orangeColor()
-        self.addSubview(rightOverlay)
-
+        expandingOutAnimation(sender)
+    }
+    
+//MARK: Animations
+    
+    func exposeButtonsAnimation() {
+        UIView.animateWithDuration(0.5) { () -> Void in
+            var overlayButtonFrame = self.overlayButton.frame
+            overlayButtonFrame.origin.x = self.overlayButton.frame.width * -1
+            self.overlayButton.frame = overlayButtonFrame
+            
+            var buttonContainerFrame = self.buttonContainer.frame
+            buttonContainerFrame.origin.x = 0
+            self.buttonContainer.frame = buttonContainerFrame
+        }
+    }
+    
+    func hideButtonsAnimaiotn() {
         UIView.animateWithDuration(0.5, animations: {
-            
-            var leftDestinationFrame = leftOverlay.frame
-            leftDestinationFrame.size.width = leftDestinationFrame.origin.x
-            leftDestinationFrame.origin.x = 0;
-            leftOverlay.frame = leftDestinationFrame
-            
-            var rightDestinationFrame = rightOverlay.frame
-            rightDestinationFrame.size.width = self.frame.width - self.tester.center.x
-            rightOverlay.frame = rightDestinationFrame
+            self.bringSubviewToFront(self.overlayButton)
+            var destinationFrame = self.overlayButton.frame
+            destinationFrame.origin.x = 0
+            self.overlayButton.frame = destinationFrame
             
             }, completion: {
                 (value: Bool) in
                 
-                UIView.animateWithDuration(0.5, animations: {
-                    self.bringSubviewToFront(self.overlay)
-                    var destinationFrame = self.overlay.frame
-                    destinationFrame.origin.x = 0
-                    self.overlay.frame = destinationFrame
-                    
-                    }, completion: {
-                        (value: Bool) in
-                        
-                        var buttonContainerFrame = self.buttonContainer.frame
-                        buttonContainerFrame.origin.x = buttonContainerFrame.width
-                        self.buttonContainer.frame = buttonContainerFrame
-                        leftOverlay.removeFromSuperview()
-                        rightOverlay.removeFromSuperview()
-
-                })
-
+                var buttonContainerFrame = self.buttonContainer.frame
+                buttonContainerFrame.origin.x = buttonContainerFrame.width
+                self.buttonContainer.frame = buttonContainerFrame
+                self.expandingOverlay.removeFromSuperview()
+                
         })
+    }
+    
+    func expandingOutAnimation(sender:UIButton) {
+        let expandingOverlayStartingFrame = CGRectMake(sender.center.x, 0, 0, self.frame.height)
+        
+        expandingOverlay = UIView(frame: expandingOverlayStartingFrame)
+        expandingOverlay.backgroundColor = UIColor(rgba: "#C2B1BD")
+        expandingOverlay.alpha = 0.5
+        self.addSubview(expandingOverlay)
+        
+        UIView.animateWithDuration(0.5, animations: {
+            
+            var expandingOverlayDestinationFrame = self.expandingOverlay.frame
+            expandingOverlayDestinationFrame.size.width = self.frame.width
+            expandingOverlayDestinationFrame.origin.x = 0;
+            self.expandingOverlay.frame = expandingOverlayDestinationFrame
+            
+            }, completion: {
+                (value: Bool) in
+                self.hideButtonsAnimaiotn()
+        })
+
     }
 }

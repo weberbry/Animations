@@ -1,0 +1,10 @@
+PODS:
+  - UIColor_Hex_Swift (1.5)
+
+DEPENDENCIES:
+  - UIColor_Hex_Swift (~> 1.5)
+
+SPEC CHECKSUMS:
+  UIColor_Hex_Swift: 09997d02e9ba2833569fd048663fddbe90cf2c52
+
+COCOAPODS: 0.38.2

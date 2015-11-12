@@ -10,10 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var buttonContainer: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let button = ExposingButton.init(frame: self.view.frame)
-        self.view.addSubview(button)
+        let frame = CGRectMake(0, 0, 250, 50)
+        
+        let button = ExposingButton.init(frame: frame)
+        buttonContainer.addSubview(button)
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true 
     }
 }
 

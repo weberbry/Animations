@@ -12,7 +12,8 @@
 		074F97611BEFD98300A893F5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074F975F1BEFD98300A893F5 /* Main.storyboard */; };
 		074F97631BEFD98300A893F5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 074F97621BEFD98300A893F5 /* Assets.xcassets */; };
 		074F97661BEFD98300A893F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 074F97641BEFD98300A893F5 /* LaunchScreen.storyboard */; };
-		074F976E1BEFDA9400A893F5 /* ExposingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F976D1BEFDA9400A893F5 /* ExposingButton.swift */; settings = {ASSET_TAGS = (); }; };
+		074F976E1BEFDA9400A893F5 /* ExposingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 074F976D1BEFDA9400A893F5 /* ExposingButton.swift */; };
+		501ACE3A35DB359590E5F4E8 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCDCC2A5A52C75C32899795D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		074F97651BEFD98300A893F5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		074F97671BEFD98300A893F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		074F976D1BEFDA9400A893F5 /* ExposingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExposingButton.swift; sourceTree = "<group>"; };
+		538D625E9038F316AFE438F4 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B45D667B321FDDEB42ED0C61 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		DCDCC2A5A52C75C32899795D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				501ACE3A35DB359590E5F4E8 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				074F975A1BEFD98300A893F5 /* Social_Tunes_Sharer */,
 				074F97591BEFD98300A893F5 /* Products */,
+				1BD67C16D2E748D996038B78 /* Pods */,
+				FBA58127D9B320E691EE15E9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,23 @@
 			path = Social_Tunes_Sharer;
 			sourceTree = "<group>";
 		};
+		1BD67C16D2E748D996038B78 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				538D625E9038F316AFE438F4 /* Pods.debug.xcconfig */,
+				B45D667B321FDDEB42ED0C61 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FBA58127D9B320E691EE15E9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DCDCC2A5A52C75C32899795D /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,9 +98,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 074F976A1BEFD98300A893F5 /* Build configuration list for PBXNativeTarget "Social_Tunes_Sharer" */;
 			buildPhases = (
+				35EFD4FD3BAFFE089B8EC9E1 /* Check Pods Manifest.lock */,
 				074F97541BEFD98300A893F5 /* Sources */,
 				074F97551BEFD98300A893F5 /* Frameworks */,
 				074F97561BEFD98300A893F5 /* Resources */,
+				AA2F9E52EB54E799928A8C4B /* Embed Pods Frameworks */,
+				1C4346C54D53D8526E8E6EDC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -131,6 +158,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1C4346C54D53D8526E8E6EDC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		35EFD4FD3BAFFE089B8EC9E1 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		AA2F9E52EB54E799928A8C4B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		074F97541BEFD98300A893F5 /* Sources */ = {
@@ -250,6 +325,7 @@
 		};
 		074F976B1BEFD98300A893F5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 538D625E9038F316AFE438F4 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Social_Tunes_Sharer/Info.plist;
@@ -261,6 +337,7 @@
 		};
 		074F976C1BEFD98300A893F5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B45D667B321FDDEB42ED0C61 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Social_Tunes_Sharer/Info.plist;
@@ -289,6 +366,7 @@
 				074F976C1BEFD98300A893F5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
