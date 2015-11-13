@@ -8,20 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, ExposingButtonDelegate {
 
     @IBOutlet weak var buttonContainer: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let frame = CGRectMake(0, 0, 250, 50)
+                
+        let images: [UIImage] = [UIImage(named: "socialMediaGoogle")!, UIImage(named: "socialMediaTwitter")!, UIImage(named: "socialMediaFacebook")!]
         
-        let button = ExposingButton.init(frame: frame)
-        buttonContainer.addSubview(button)
+        let exposingButton = ExposingButton(buttonImages: images, height: 50, margin: 10, spacing: 50)
+        exposingButton.delegate = self
+        buttonContainer.addSubview(exposingButton)
     }
     
     override func prefersStatusBarHidden() -> Bool {
         return true 
+    }
+    
+    func exposingButtonDidSelect(button: UIButton) {
+        print("Did Selected \(button)")
     }
 }
 

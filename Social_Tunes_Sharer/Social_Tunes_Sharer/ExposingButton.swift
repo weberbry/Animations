@@ -9,11 +9,76 @@
 import UIKit
 import UIColor_Hex_Swift
 
+protocol ExposingButtonDelegate {
+    func exposingButtonDidSelect(button: UIButton)
+}
+
 class ExposingButton: UIView {
+    
+    let overlayButtonColor = "#DCCA7A"
+    let overlayButtonTextColor = "#59302A"
+    let individualButtonColor = "#DED6D7"
+    let buttonContainerColor = "#59302A"
+    let expandingOverlayColor = "#C2B1BD"
     
     var overlayButton: UIButton!
     var buttonContainer: UIView!
     var expandingOverlay: UIView!
+    var buttonImages : [UIImage]!
+    var delegate: ExposingButtonDelegate?
+    
+    convenience init(buttonImages: [UIImage], height: Int, margin: Int, spacing: Int) {
+        let width = (buttonImages.count * (height - margin)) + (margin * 2) + ((buttonImages.count - 1) * spacing)
+        
+        self.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
+        self.buttonImages = buttonImages
+        
+        backgroundColor = UIColor(rgba: buttonContainerColor)
+        
+        buttonContainer = UIView(frame: CGRectMake(frame.width, 0, frame.width, frame.height))
+        
+        let buttonWidth = CGFloat(height)
+        
+        for var index = 0; index < self.buttonImages.count; ++index {
+            
+            let button  = UIButton(type: UIButtonType.System) as UIButton
+            
+            let xOffSet = (CGFloat(index + 1) / CGFloat(buttonImages.count)) * frame.width
+            button.frame = CGRectMake(xOffSet - buttonWidth, 10, buttonWidth - 20, buttonWidth - 20)
+            button.setImage(self.buttonImages[index], forState: .Normal)
+            button.addTarget(self, action: "buttonTapped:", forControlEvents:.TouchUpInside)
+            button.tintColor = UIColor(rgba: individualButtonColor)
+            buttonContainer.addSubview(button)
+        }
+        
+        self.addSubview(buttonContainer)
+        
+        let ovalPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, frame.width, frame.height), cornerRadius: 50)
+        
+        overlayButton = UIButton(frame: CGRectMake(0, 0, frame.width, frame.height))
+        overlayButton.backgroundColor = UIColor(rgba: overlayButtonColor)
+        overlayButton.setTitle("SHARE", forState: UIControlState.Normal)
+        overlayButton.addTarget(self, action: "overlayTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        overlayButton.setTitleColor(UIColor(rgba: overlayButtonTextColor), forState: UIControlState.Normal)
+        overlayButton.titleLabel!.font =  UIFont(name: "HelveticaNeue-Bold", size: 20)
+        
+        let overlayButtonMask = CAShapeLayer.init()
+        overlayButtonMask.frame = CGRectMake(0, 0, frame.width, frame.height)
+        overlayButtonMask.frame = self.bounds;
+        overlayButtonMask.path = ovalPath.CGPath;
+        
+        overlayButton.layer.mask = overlayButtonMask;
+        
+        self.addSubview(overlayButton)
+        
+        let maskLayer = CAShapeLayer.init()
+        maskLayer.frame = CGRectMake(0, 0, frame.width, frame.height)
+        maskLayer.frame = self.bounds;
+        maskLayer.path = ovalPath.CGPath;
+        
+        self.layer.mask = maskLayer;
+
+    }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder:aDecoder)!
@@ -21,48 +86,6 @@ class ExposingButton: UIView {
     
     override init(frame:CGRect) {
         super.init(frame:frame)
-        
-        backgroundColor = UIColor(rgba: "#59302A")
-        
-        buttonContainer = UIView(frame: CGRectMake(frame.width, 0, frame.width, frame.height))
-        
-        let buttonNames : [String] = ["socialMediaGoogle", "socialMediaTwitter", "socialMediaFacebook"]
-        
-        for var index = 0; index < buttonNames.count; ++index {
-            
-            let buttonName = buttonNames[index]
-            let image = UIImage(named: buttonName) as UIImage?
-            let button  = UIButton(type: UIButtonType.System) as UIButton
-            
-            let x = (CGFloat(index + 1) / CGFloat(buttonNames.count)) * frame.width
-            button.frame = CGRectMake(x - frame.height, 10, frame.height - 20, frame.height - 20)
-            button.setImage(image, forState: .Normal)
-            button.addTarget(self, action: "buttonTapped:", forControlEvents:.TouchUpInside)
-            button.tintColor = UIColor(rgba: "#DED6D7")
-            buttonContainer.addSubview(button)
-        }
-        
-        self.addSubview(buttonContainer)
-        
-        overlayButton = UIButton(frame: CGRectMake(0, 0, frame.width, frame.height))
-        overlayButton.backgroundColor = UIColor(rgba: "#DCCA7A")
-        overlayButton.setTitle("SHARE", forState: UIControlState.Normal)
-        overlayButton.addTarget(self, action: "overlayTapped:", forControlEvents: UIControlEvents.TouchUpInside)
-        overlayButton.setTitleColor(UIColor(rgba: "#59302A"), forState: UIControlState.Normal)
-        overlayButton.titleLabel!.font =  UIFont(name: "HelveticaNeue-Bold", size: 20)
-        self.addSubview(overlayButton)
-        
-
-        
-        let maskPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, frame.width, frame.height), cornerRadius: 50)
-        
-        let maskLayer = CAShapeLayer.init()
-        maskLayer.frame = CGRectMake(0, 0, frame.width, frame.height)
-        maskLayer.frame = self.bounds;
-        maskLayer.path = maskPath.CGPath;
-        
-        self.layer.mask = maskLayer;
-
     }
     
 //MARK: Button Actions
@@ -73,6 +96,9 @@ class ExposingButton: UIView {
     
     func buttonTapped(sender:UIButton) {
         expandingOutAnimation(sender)
+        if let delegate = self.delegate {
+            delegate.exposingButtonDidSelect(sender)
+        }
     }
     
 //MARK: Animations
@@ -111,15 +137,17 @@ class ExposingButton: UIView {
         let expandingOverlayStartingFrame = CGRectMake(sender.center.x, 0, 0, self.frame.height)
         
         expandingOverlay = UIView(frame: expandingOverlayStartingFrame)
-        expandingOverlay.backgroundColor = UIColor(rgba: "#C2B1BD")
+        expandingOverlay.backgroundColor = UIColor(rgba: expandingOverlayColor)
         expandingOverlay.alpha = 0.5
         self.addSubview(expandingOverlay)
         
         UIView.animateWithDuration(0.5, animations: {
             
+            let maxDistance = max(sender.center.x, self.frame.width - sender.center.x)
+            
             var expandingOverlayDestinationFrame = self.expandingOverlay.frame
-            expandingOverlayDestinationFrame.size.width = self.frame.width
-            expandingOverlayDestinationFrame.origin.x = 0;
+            expandingOverlayDestinationFrame.size.width = maxDistance * 2
+            expandingOverlayDestinationFrame.origin.x =  sender.center.x - maxDistance;
             self.expandingOverlay.frame = expandingOverlayDestinationFrame
             
             }, completion: {
