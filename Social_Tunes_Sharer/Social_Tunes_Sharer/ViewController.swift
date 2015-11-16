@@ -11,15 +11,27 @@ import UIKit
 class ViewController: UIViewController, ExposingButtonDelegate {
 
     @IBOutlet weak var buttonContainer: UIView!
+    var exposingButton: ExposingButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        let images: [UIImage] = [UIImage(named: "socialMediaGoogle")!, UIImage(named: "socialMediaTwitter")!, UIImage(named: "socialMediaFacebook")!]
+        let images: [UIImage] = [UIImage(named: "socialMediaTwitter")!, UIImage(named: "socialMediaGoogle")!, UIImage(named: "socialMediaFacebook")!]
         
-        let exposingButton = ExposingButton(buttonImages: images, height: 50, margin: 10, spacing: 50)
+        exposingButton = ExposingButton(buttonImages: images)
         exposingButton.delegate = self
         buttonContainer.addSubview(exposingButton)
+        addConstraints()
+    }
+    
+    func addConstraints () {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        let xCenterConstraint = NSLayoutConstraint(item: exposingButton, attribute: .CenterX, relatedBy: .Equal, toItem: buttonContainer, attribute: .CenterX, multiplier: 1, constant: 0)
+        view.addConstraint(xCenterConstraint)
+        
+        let yCenterConstraint = NSLayoutConstraint(item: exposingButton, attribute: .CenterY, relatedBy: .Equal, toItem: buttonContainer, attribute: .CenterY, multiplier: 1, constant: 0)
+        view.addConstraint(yCenterConstraint)
+    
     }
     
     override func prefersStatusBarHidden() -> Bool {
@@ -27,7 +39,7 @@ class ViewController: UIViewController, ExposingButtonDelegate {
     }
     
     func exposingButtonDidSelect(button: UIButton) {
-        print("Did Selected \(button)")
+        print("Did Select \(button)")
     }
 }
 

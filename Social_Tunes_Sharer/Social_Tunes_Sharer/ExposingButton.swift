@@ -24,35 +24,48 @@ class ExposingButton: UIView {
     var overlayButton: UIButton!
     var buttonContainer: UIView!
     var expandingOverlay: UIView!
-    var buttonImages : [UIImage]!
     var delegate: ExposingButtonDelegate?
     
-    convenience init(buttonImages: [UIImage], height: Int, margin: Int, spacing: Int) {
-        let width = (buttonImages.count * (height - margin)) + (margin * 2) + ((buttonImages.count - 1) * spacing)
-        
-        self.init(frame: CGRect(x: 0, y: 0, width: width, height: height))
-        self.buttonImages = buttonImages
+    convenience init(buttonImages: [UIImage]) {
+        let width = (CGFloat(buttonImages.count) * 60) + 30
+        self.init(frame: CGRect(x: 0, y: 0, width: width, height: 50))
         
         backgroundColor = UIColor(rgba: buttonContainerColor)
         
+        configureButtonContainer(buttonImages)
+        self.addSubview(buttonContainer)
+        
+        configureOverlayButton()
+        self.addSubview(overlayButton)
+        
+        configureViewMask()
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        super.init(coder:aDecoder)!
+    }
+    
+    override init(frame:CGRect) {
+        super.init(frame:frame)
+    }
+    
+//MARK: Configuration
+    
+    func configureButtonContainer(buttonImages: [UIImage]) {
         buttonContainer = UIView(frame: CGRectMake(frame.width, 0, frame.width, frame.height))
         
-        let buttonWidth = CGFloat(height)
-        
-        for var index = 0; index < self.buttonImages.count; ++index {
+        for var index = 0; index < buttonImages.count; ++index {
             
             let button  = UIButton(type: UIButtonType.System) as UIButton
-            
-            let xOffSet = (CGFloat(index + 1) / CGFloat(buttonImages.count)) * frame.width
-            button.frame = CGRectMake(xOffSet - buttonWidth, 10, buttonWidth - 20, buttonWidth - 20)
-            button.setImage(self.buttonImages[index], forState: .Normal)
+            button.frame = CGRectMake(30 + (60 * CGFloat(index)), 10, 30, 30)
+            button.setImage(buttonImages[index], forState: .Normal)
             button.addTarget(self, action: "buttonTapped:", forControlEvents:.TouchUpInside)
             button.tintColor = UIColor(rgba: individualButtonColor)
             buttonContainer.addSubview(button)
         }
-        
-        self.addSubview(buttonContainer)
-        
+    }
+    
+    func configureOverlayButton() {
         let ovalPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, frame.width, frame.height), cornerRadius: 50)
         
         overlayButton = UIButton(frame: CGRectMake(0, 0, frame.width, frame.height))
@@ -68,8 +81,10 @@ class ExposingButton: UIView {
         overlayButtonMask.path = ovalPath.CGPath;
         
         overlayButton.layer.mask = overlayButtonMask;
-        
-        self.addSubview(overlayButton)
+    }
+    
+    func configureViewMask() {
+        let ovalPath = UIBezierPath.init(roundedRect: CGRectMake(0, 0, frame.width, frame.height), cornerRadius: 50)
         
         let maskLayer = CAShapeLayer.init()
         maskLayer.frame = CGRectMake(0, 0, frame.width, frame.height)
@@ -77,15 +92,6 @@ class ExposingButton: UIView {
         maskLayer.path = ovalPath.CGPath;
         
         self.layer.mask = maskLayer;
-
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        super.init(coder:aDecoder)!
-    }
-    
-    override init(frame:CGRect) {
-        super.init(frame:frame)
     }
     
 //MARK: Button Actions
@@ -115,24 +121,6 @@ class ExposingButton: UIView {
         }
     }
     
-    func hideButtonsAnimaiotn() {
-        UIView.animateWithDuration(0.5, animations: {
-            self.bringSubviewToFront(self.overlayButton)
-            var destinationFrame = self.overlayButton.frame
-            destinationFrame.origin.x = 0
-            self.overlayButton.frame = destinationFrame
-            
-            }, completion: {
-                (value: Bool) in
-                
-                var buttonContainerFrame = self.buttonContainer.frame
-                buttonContainerFrame.origin.x = buttonContainerFrame.width
-                self.buttonContainer.frame = buttonContainerFrame
-                self.expandingOverlay.removeFromSuperview()
-                
-        })
-    }
-    
     func expandingOutAnimation(sender:UIButton) {
         let expandingOverlayStartingFrame = CGRectMake(sender.center.x, 0, 0, self.frame.height)
         
@@ -152,8 +140,26 @@ class ExposingButton: UIView {
             
             }, completion: {
                 (value: Bool) in
-                self.hideButtonsAnimaiotn()
+                self.hideButtonsAnimation()
         })
-
+        
     }
+    
+    func hideButtonsAnimation() {
+        UIView.animateWithDuration(0.5, animations: {
+            self.bringSubviewToFront(self.overlayButton)
+            var destinationFrame = self.overlayButton.frame
+            destinationFrame.origin.x = 0
+            self.overlayButton.frame = destinationFrame
+            
+            }, completion: {
+                (value: Bool) in
+                
+                var buttonContainerFrame = self.buttonContainer.frame
+                buttonContainerFrame.origin.x = buttonContainerFrame.width
+                self.buttonContainer.frame = buttonContainerFrame
+                self.expandingOverlay.removeFromSuperview()
+        })
+    }
+    
 }
