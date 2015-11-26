@@ -12,13 +12,14 @@ class ExpandingAnimator: NSObject , UIViewControllerAnimatedTransitioning {
     
     var presenting = true
     var originFrame = CGRect.zero
+    let animationDuration: Double = 0.75
     
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         if let fromViewController = transitionContext!.viewControllerForKey(UITransitionContextFromViewControllerKey) as? ViewController {
             return fromViewController.transitionDuration!
         }
         
-        return 10
+        return animationDuration
     }
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
@@ -28,7 +29,6 @@ class ExpandingAnimator: NSObject , UIViewControllerAnimatedTransitioning {
             if let fromViewController = transitionContext.viewControllerForKey(UITransitionContextFromViewControllerKey) as? ViewController {
                 
                 let containerView = transitionContext.containerView()
-                
                 let toView = transitionContext.viewForKey(UITransitionContextToViewKey)!
                 
                 toView.frame = fromViewController.selectedCell!.frame
@@ -36,17 +36,17 @@ class ExpandingAnimator: NSObject , UIViewControllerAnimatedTransitioning {
                 containerView?.addSubview(toView)
                 fromViewController.selectedCell?.transform = CGAffineTransformMakeTranslation(0, fromViewController.tableView.frame.height)
                 
-                UIView.animateWithDuration(0.75, animations: { () -> Void in
+                UIView.animateWithDuration(animationDuration, animations: { () -> Void in
                     var frame = toView.frame
                     frame.origin.y = 0
                     toView.frame = frame
                     }, completion: {_ in
                         
-                        UIView.animateWithDuration(0.75, animations: { () -> Void in
+                        UIView.animateWithDuration(self.animationDuration, animations: { () -> Void in
                             let frame = fromViewController.view.frame
                             toView.frame = frame
-                            
-                            transitionContext.completeTransition(true)
+                            }, completion: {_ in
+                                transitionContext.completeTransition(true)
                         })
                 })
             }
@@ -57,7 +57,7 @@ class ExpandingAnimator: NSObject , UIViewControllerAnimatedTransitioning {
             let containerView = transitionContext.containerView()
             toView.frame = fromView.frame
 
-            UIView.animateWithDuration(0.75, animations: { () -> Void in
+            UIView.animateWithDuration(animationDuration, animations: { () -> Void in
                 fromView.frame = CGRectMake(0, 0, fromView.frame.width, 0)
                 }, completion: {_ in
                     containerView?.addSubview(toView)
