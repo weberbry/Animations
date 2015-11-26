@@ -16,7 +16,7 @@ class ViewController: UIViewController, ExposingButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        let images: [UIImage] = [UIImage(named: "socialMediaTwitter")!, UIImage(named: "socialMediaGoogle")!, UIImage(named: "socialMediaFacebook")!]
+        let images: [UIImage] = [UIImage(named: "socialMediaTwitter")!, UIImage(named: "socialMediaGoogle")!, UIImage(named: "socialMediaFacebook")!, UIImage(named: "socialMediaTwitter")!, UIImage(named: "socialMediaGoogle")!, UIImage(named: "socialMediaFacebook")!]
         
         exposingButton = ExposingButton(buttonImages: images)
         exposingButton.delegate = self
