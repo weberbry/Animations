@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     func configureTableView() {
         startColor = UIColor.redColor()
-        endColor = UIColor.purpleColor()
+        endColor = UIColor.blueColor()
         tableView.backgroundColor = UIColor.blackColor()
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
 
@@ -69,7 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
  
         transitionDuration = (Double(droppingCells.count) * 0.1) + 0.75
         selectedCell = tableView.cellForRowAtIndexPath(indexPath)
-        view.bringSubviewToFront(selectedCell!)
+        tableView.bringSubviewToFront(selectedCell!)
         
         for var i = 0; i < droppingCells.count; ++i {
             let delay = 0.1 * Double(items.count - i)
