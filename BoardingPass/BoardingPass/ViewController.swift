@@ -15,9 +15,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationController!.navigationBar.translucent = false;
+        navigationController!.navigationBar.barTintColor = boardingPassBlue
+        
+        
         let barCodeNavigationItemView = BarCodeNavigationItemView(frame: CGRectMake(0, 0, 30, 40))
         barCodeNavigationItemView.configureViewWithColor(boardingPassBlue)
-        view.addSubview(barCodeNavigationItemView)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: barCodeNavigationItemView)
+        
+       // barCodeNavigationItemView.configureViewWithColor(boardingPassBlue)
+       // view.addSubview(barCodeNavigationItemView)
     }
 
 }

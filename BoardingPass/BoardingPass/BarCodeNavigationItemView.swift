@@ -46,14 +46,14 @@ class BarCodeNavigationItemView: UIView {
     
     func barCodeView() -> UIView {
         
-        let barCodeWidths : [CGFloat] = [4, 2, 4, 6, 8, 6, 4, 4, 2, 2]
+        let barCodeWidths : [CGFloat] = [4, 2, 4, 2, 8, 2, 6, 4, 2, 2]
         
         let barCodeView = UIView(frame: CGRectMake(0, 0, 30, 40))
         
         var offset : CGFloat = 0.0
         
         for barCodeWidth in barCodeWidths {
-            let barView = UIView(frame: CGRectMake(offset, 0, barCodeWidth, 40))
+            let barView = UIView(frame: CGRectMake(offset, 10, barCodeWidth, 20))
             barView.backgroundColor = UIColor.whiteColor()
             barCodeView.addSubview(barView)
             offset = offset + 2 + CGFloat(barCodeWidth)
