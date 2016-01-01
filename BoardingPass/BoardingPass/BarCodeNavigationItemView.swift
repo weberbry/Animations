@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol BarCodeNavigationItemViewDelegate {
+    func didExposeBarCode()
+    func didHideBarCode()
+}
+
 class BarCodeNavigationItemView: UIView {
 
     let containerView : UIView = UIView(frame: CGRectMake(0, 0, 30, 40))
@@ -19,6 +24,8 @@ class BarCodeNavigationItemView: UIView {
     let rightClosingXView : UIView = UIView(frame: CGRectMake(15, 5, 2, 30))
     
     var isBarCodeExposed: Bool = false
+    
+    var delegate: BarCodeNavigationItemViewDelegate?
     
     func configureViewWithColor(color: UIColor) {
         
@@ -92,6 +99,7 @@ class BarCodeNavigationItemView: UIView {
             self.rightClosingXView.transform = CGAffineTransformMakeRotation(-45.degreesToRadians)
             }, completion: {_ in
                 self.isBarCodeExposed = false
+                self.delegate?.didHideBarCode()
         })
     }
     
@@ -107,6 +115,7 @@ class BarCodeNavigationItemView: UIView {
             self.rightOverlayView.frame = rightOverlayFrame
             }, completion: {_ in
                 self.isBarCodeExposed = true
+                self.delegate?.didExposeBarCode()
         })
     }
     
