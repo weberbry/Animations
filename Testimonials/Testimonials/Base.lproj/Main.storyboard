@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Testimonials" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TEXT" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YBO-I8-QhL">
+                                <rect key="frame" x="263" y="120" width="73" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KQ8-l3-Wae">
+                                <rect key="frame" x="0.0" y="300" width="600" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3Wl-NR-wnO" userLabel="Top Container View">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="300"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LFB-23-eFy">
+                                <rect key="frame" x="225" y="225" width="150" height="150"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.49019607840000001" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="NEM-av-hBP"/>
+                                    <constraint firstAttribute="width" constant="150" id="Q9d-Iv-af3"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.81568627449999997" green="0.0078431372550000003" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="3Wl-NR-wnO" secondAttribute="trailing" id="0gf-ub-ijy"/>
+                            <constraint firstItem="LFB-23-eFy" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="490-GH-9TN"/>
+                            <constraint firstItem="YBO-I8-QhL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="4jD-1a-Rgu"/>
+                            <constraint firstItem="3Wl-NR-wnO" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="BBb-sw-yMT"/>
+                            <constraint firstItem="3Wl-NR-wnO" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="EJF-kn-Zwg"/>
+                            <constraint firstItem="YBO-I8-QhL" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="MRH-Nq-eg1"/>
+                            <constraint firstItem="KQ8-l3-Wae" firstAttribute="top" secondItem="3Wl-NR-wnO" secondAttribute="bottom" id="ScT-kf-hAs"/>
+                            <constraint firstItem="3Wl-NR-wnO" firstAttribute="height" secondItem="KQ8-l3-Wae" secondAttribute="height" id="SfE-uF-wdT"/>
+                            <constraint firstItem="LFB-23-eFy" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="aFA-Ku-BpS"/>
+                            <constraint firstItem="KQ8-l3-Wae" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bsB-5l-mg3"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="KQ8-l3-Wae" secondAttribute="bottom" id="jwf-Uc-kxl"/>
+                            <constraint firstAttribute="trailing" secondItem="KQ8-l3-Wae" secondAttribute="trailing" id="kWN-Ld-rDD"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="lowerContainerView" destination="KQ8-l3-Wae" id="ivN-4o-x3D"/>
+                        <outlet property="messageLabel" destination="YBO-I8-QhL" id="aSw-2A-AGZ"/>
+                        <outlet property="photoImageView" destination="LFB-23-eFy" id="PGV-Qo-rom"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="470" y="289"/>
+        </scene>
+    </scenes>
+</document>
